@@ -231,6 +231,26 @@ class CheckRunsService extends Service {
       preview: _previewHeader,
     );
   }
+
+  /// Triggers GitHub to rerequest an existing check run, without pushing new code to a repository.
+  /// This endpoint will trigger the [`check_run` webhook](https://developer.github.com/v3/activity/events/types/#checkrunevent) event with the action rerequested.
+  /// When a check run is `rerequested`, the `status` of the check suite it belongs to is reset to `queued` and the `conclusion` is cleared.
+  /// The check run itself is not updated.
+  /// To rerequest a check run, your GitHub App must have the `checks:write` permission.
+  ///
+  /// API docs: https://docs.github.com/en/rest/checks/runs#rerequest-a-check-run
+  Future<void> reRequestCheckRun(
+    RepositorySlug slug, {
+    required int checkRunId,
+  }) {
+    ArgumentError.checkNotNull(checkRunId);
+    return github.request(
+      'POST',
+      'repos/$slug/check-runs/$checkRunId/rerequest',
+      statusCode: StatusCodes.CREATED,
+      preview: _previewHeader,
+    );
+  }
 }
 
 class CheckSuitesService extends Service {
