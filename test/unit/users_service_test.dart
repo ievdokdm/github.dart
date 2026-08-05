@@ -48,6 +48,7 @@ void main() {
         "blog": "https://github.com/blog",
         "location": "San Francisco",
         "email": "octocat@github.com",
+        "hireable": false,
         "bio": "There once was...",
         "twitter_username": "monatheoctocat",
         "public_repos": 2,
@@ -115,6 +116,7 @@ void main() {
       expect(user.blog, 'https://github.com/blog');
       expect(user.location, 'San Francisco');
       expect(user.email, 'octocat@github.com');
+      expect(user.hirable, isFalse);
       expect(user.bio, 'There once was...');
       expect(user.twitterUsername, 'monatheoctocat');
       expect(user.publicReposCount, 2);
